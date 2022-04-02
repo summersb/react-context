@@ -1,25 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Middle from "./Middle";
+
+export interface MyCtx {
+  count: number;
+}
+
+export const UserContext = React.createContext<MyCtx>({ count: 0 });
 
 function App() {
+  const [count, setCount] = React.useState<number>(0);
+  const ctx = { count };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider value={ctx}>
+      <div className="App">
+        <input
+          type="button"
+          onClick={() => setCount(count + 1)}
+          value="Click Me"
+        ></input>
+        <Middle />
+      </div>
+    </UserContext.Provider>
   );
 }
 
